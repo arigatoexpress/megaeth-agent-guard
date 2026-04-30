@@ -1,0 +1,6 @@
+[allowlist]
+description = "Public EVM contract/address literals are expected in MegaETH docs."
+regexes = [
+  '''0x[0-9a-fA-F]{40}''',
+]
+

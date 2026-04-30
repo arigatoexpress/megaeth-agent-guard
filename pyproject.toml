@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "megaeth-agent-guard"
+version = "0.1.0"
+description = "Read-only MegaETH app scout and agent intent firewall for real-time onchain apps."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Ari B + Codex" }]
+dependencies = [
+  "flask>=3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.4",
+]
+
+[project.scripts]
+mega-guard = "megaeth_agent_guard.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/megaeth_agent_guard"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
