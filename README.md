@@ -98,6 +98,7 @@ python3 scripts/mega_guard.py evaluate --intent-json '{"action":"bridge_eth","mo
 python3 -m pytest -q
 python3 -m compileall src scripts
 ruff check .
+python3 scripts/browser_smoke.py
 gitleaks detect --no-git --source . --redact --verbose
 ```
 
