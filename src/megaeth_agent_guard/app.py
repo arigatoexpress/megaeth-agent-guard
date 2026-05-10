@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import os
-from pathlib import Path
 
 from flask import Flask, jsonify, render_template, request
 
@@ -12,9 +11,7 @@ from megaeth_agent_guard.domain_guard import evaluate_url
 from megaeth_agent_guard.policy import DEFAULT_BUDGET_CAPS, evaluate_intent
 from megaeth_agent_guard.scout import build_scout_report
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-
-app = Flask(__name__, template_folder=str(PROJECT_ROOT / "templates"))
+app = Flask(__name__, template_folder="templates")
 
 
 @app.get("/")

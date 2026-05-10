@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from megaeth_agent_guard.app import app
 
 
@@ -20,6 +22,7 @@ def test_health_endpoint():
 
 def test_index_uses_static_workbench_assets():
     client = app.test_client()
+    package_root = Path(__file__).resolve().parents[1] / "src" / "megaeth_agent_guard"
 
     response = client.get("/")
     html = response.get_data(as_text=True)
@@ -32,6 +35,8 @@ def test_index_uses_static_workbench_assets():
     assert "<style>" not in html
     assert "function evaluateIntent" not in html
     assert "Wallet <strong>no signing</strong>" in html
+    assert (package_root / "templates" / "index.html").exists()
+    assert not (package_root.parents[1] / "templates" / "index.html").exists()
     assert css.status_code == 200
     assert ".posture-strip" in css.get_data(as_text=True)
     assert js.status_code == 200
