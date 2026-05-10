@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MegaETH Agent Guard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <div class="shell">
+      <aside>
+        <div class="brand">
+          <div class="mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2l8 4v6c0 5-3.4 8.7-8 10-4.6-1.3-8-5-8-10V6l8-4z" stroke="#8de7c3" stroke-width="1.6"/>
+              <path d="M8 12h8M12 8v8" stroke="#67d4ff" stroke-width="1.6"/>
+            </svg>
+          </div>
+          <div>
+            <h1>MegaETH Agent Guard</h1>
+            <p class="sub">Read, quote, simulate. Never sign.</p>
+          </div>
+        </div>
+        <div class="status-list" id="guardrails"></div>
+      </aside>
+
+      <main>
+        <section class="posture-strip" aria-label="Execution boundary">
+          <span>Network <strong>MegaETH mainnet</strong></span>
+          <span>Mode <strong>read + simulate</strong></span>
+          <span>Wallet <strong>no signing</strong></span>
+          <span>Settlement <strong>disabled</strong></span>
+        </section>
+
+        <section class="toolbar">
+          <button class="btn primary" id="refreshLive" title="Refresh live RPC and Rabbithole sources">Refresh Live Scout</button>
+          <button class="btn" id="staticScout" title="Load deterministic offline scout">Static Snapshot</button>
+          <button class="btn" id="denySample" title="Evaluate a blocked wallet action">Deny Sample</button>
+          <button class="btn" id="allowSample" title="Evaluate a safe read action">Allow Sample</button>
+        </section>
+
+        <section class="grid">
+          <div class="panel span-3">
+            <h2>Chain</h2>
+            <div class="metric" id="chainId">4326</div>
+            <p class="sub">MegaETH mainnet</p>
+          </div>
+          <div class="panel span-3">
+            <h2>Block</h2>
+            <div class="metric" id="blockNumber">static</div>
+            <p class="sub">Live RPC when refreshed</p>
+          </div>
+          <div class="panel span-3">
+            <h2>Apps</h2>
+            <div class="metric" id="appCount">10</div>
+            <p class="sub">Curated agent surfaces</p>
+          </div>
+          <div class="panel span-3">
+            <h2>Settlement</h2>
+            <div class="metric">off</div>
+            <p class="sub">Mainnet writes disabled</p>
+          </div>
+
+          <div class="panel span-7">
+            <h2>Intent Firewall</h2>
+            <div class="decision">
+              <div class="decision-badge review" id="decisionBadge">review</div>
+              <div>
+                <textarea id="intentInput" spellcheck="false"></textarea>
+                <div class="toolbar toolbar-spaced">
+                  <button class="btn primary" id="evaluateIntent">Evaluate</button>
+                  <span class="pill" id="receipt">receipt pending</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel span-5">
+            <h2>Domain Guard</h2>
+            <input id="domainInput" value="https://rabbithole.megaeth.com">
+            <div class="toolbar toolbar-spaced">
+              <button class="btn" id="checkDomain">Check URL</button>
+              <span class="pill" id="domainStatus">pending</span>
+            </div>
+            <pre class="mono pre-spaced" id="domainOutput"></pre>
+          </div>
+
+          <div class="panel span-5">
+            <h2>Featured Live</h2>
+            <div class="list" id="featuredList"></div>
+          </div>
+          <div class="panel span-7">
+            <h2>App Surfaces</h2>
+            <div class="list" id="appsList"></div>
+          </div>
+
+          <div class="panel span-12">
+            <h2>Raw Decision</h2>
+            <pre class="mono" id="decisionOutput"></pre>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+  </body>
+</html>

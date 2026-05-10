@@ -72,6 +72,7 @@ python3 scripts/mega_guard.py evaluate --intent-json '{"action":"bridge_eth","mo
 | Endpoint | Purpose |
 | --- | --- |
 | `GET /api/health` | Service mode and safety flags |
+| `GET /api/frontend-contract` | Browser-smoke contract for required UI selectors, route readbacks, and disabled external effects |
 | `GET /api/catalog` | Static MegaETH network/app/intent catalog |
 | `GET /api/scout?live=1` | Live read-only RPC and Rabbithole scout |
 | `POST /api/evaluate` | Intent policy decision and receipt hash |
@@ -94,9 +95,9 @@ python3 scripts/mega_guard.py evaluate --intent-json '{"action":"bridge_eth","mo
 ## Tests
 
 ```bash
-PYTHONPATH=src python3 -m pytest -q
+python3 -m pytest -q
 python3 -m compileall src scripts
-uv run --no-project --with ruff ruff check .
+ruff check .
 gitleaks detect --no-git --source . --redact --verbose
 ```
 
@@ -109,4 +110,3 @@ gitleaks detect --no-git --source . --redact --verbose
    overclaiming.
 5. Add a signed policy receipt contract on MegaETH testnet only, then consider
    mainnet after explicit operator review.
-
