@@ -95,9 +95,9 @@ python3 scripts/mega_guard.py evaluate --intent-json '{"action":"bridge_eth","mo
 ## Tests
 
 ```bash
-PYTHONPATH=src python3 -m pytest -q
+python3 -m pytest -q
 python3 -m compileall src scripts
-uv run --no-project --with ruff ruff check .
+ruff check .
 gitleaks detect --no-git --source . --redact --verbose
 ```
 
