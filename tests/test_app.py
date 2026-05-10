@@ -12,6 +12,28 @@ def test_health_endpoint():
     assert payload["signingEnabled"] is False
 
 
+def test_index_uses_static_workbench_assets():
+    client = app.test_client()
+
+    response = client.get("/")
+    html = response.get_data(as_text=True)
+    css = client.get("/static/styles.css")
+    js = client.get("/static/app.js")
+
+    assert response.status_code == 200
+    assert "/static/styles.css" in html
+    assert "/static/app.js" in html
+    assert "<style>" not in html
+    assert "function evaluateIntent" not in html
+    assert "Wallet <strong>no signing</strong>" in html
+    assert css.status_code == 200
+    assert ".posture-strip" in css.get_data(as_text=True)
+    assert js.status_code == 200
+    js_body = js.get_data(as_text=True)
+    assert "async function evaluateIntent" in js_body
+    assert 'fetchJson("/api/evaluate"' in js_body
+
+
 def test_catalog_endpoint():
     client = app.test_client()
     payload = client.get("/api/catalog").get_json()
@@ -37,4 +59,3 @@ def test_static_scout_endpoint():
 
     assert payload["live"] is False
     assert payload["catalog"]["network"]["chain_id"] == 4326
-
