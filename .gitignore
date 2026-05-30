@@ -13,3 +13,6 @@ data/*.jsonl
 coverage.xml
 .coverage
 output/
+
+# Secrets and build artifacts
+.env
