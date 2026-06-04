@@ -16,3 +16,5 @@ output/
 
 # Secrets and build artifacts
 .env
+.env.*
+!.env.example
